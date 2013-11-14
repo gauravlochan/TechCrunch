@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFiProximity</string>
+    <string name="enter_device_name">What\'s my name?</string>
+    <string name="go">Go!</string>
+</resources>
