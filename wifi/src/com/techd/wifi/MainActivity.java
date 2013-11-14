@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.techd.wifi.R;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -113,16 +115,19 @@ public class MainActivity extends Activity implements OnClickListener
     		File dir = new File(external.getAbsolutePath() + "/wifi");
     		dir.mkdirs();
     		
-    		File file = new File(dir + "/"+filename);
+    		File file = new File(dir + "/"+filename+".csv");
     	    FileOutputStream fos = new FileOutputStream(file, true);
     	    long time = System.currentTimeMillis();
     	    for (int i=0; i< results.size(); i++) {
-    	    	String data = String.valueOf(time) + "," +
-    	    			results.get(i).BSSID + "," +
-    	    			results.get(i).SSID +"," +
-    	    			results.get(i).level +"\n";
-    	    	
-    	    	fos.write(data.getBytes());
+    	    	String ssid = results.get(i).SSID;
+    	    	if (ssid.equals("TECHCRUNCH")) {
+	    	    	String data = String.valueOf(time) + "," +
+	    	    			results.get(i).BSSID + "," +
+	    	    			results.get(i).SSID +"," +
+	    	    			results.get(i).level +"\n";
+	    	    	
+	    	    	fos.write(data.getBytes());
+    	    	}
     	    }
     	    fos.close();
     	} catch (Exception e) {
