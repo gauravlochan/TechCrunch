@@ -2,12 +2,9 @@ package com.techd.wifi;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.techd.wifi.R;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -27,6 +24,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.techd.wifi.model.Layout;
+
 public class MainActivity extends Activity implements OnClickListener
  {      
     WifiManager wifi;       
@@ -34,6 +33,9 @@ public class MainActivity extends Activity implements OnClickListener
     TextView textStatus;
     Button buttonScan;
     Button buttonRecord;
+    Button buttonCalc;
+    TextView locationResult;
+    
     EditText scanName;
     
     int size = 0;
@@ -55,6 +57,7 @@ public class MainActivity extends Activity implements OnClickListener
         
         scanName = (EditText) findViewById(R.id.editText1);
 
+        locationResult = (TextView) findViewById(R.id.textView2);
         buttonRecord = (Button) findViewById(R.id.button2);
         buttonRecord.setOnClickListener(new OnClickListener() {
 			@Override
@@ -62,6 +65,15 @@ public class MainActivity extends Activity implements OnClickListener
 				dumpResults(scanName.getText().toString(), results);
 			}
 		});
+        
+        buttonCalc = (Button) findViewById(R.id.buttonCalc);
+        buttonCalc.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				locationResult.setText(processDump(scanName.getText().toString()));
+			}
+		});
+
 
         lv = (ListView)findViewById(R.id.listView1);
 
@@ -109,7 +121,12 @@ public class MainActivity extends Activity implements OnClickListener
         { }         
     }
     
+    // global
+    List<ScanResult> allResults = new ArrayList<ScanResult>();
+
+    
     public void dumpResults(String filename, List<ScanResult> results) {
+
     	try {
     		File external = Environment.getExternalStorageDirectory();
     		File dir = new File(external.getAbsolutePath() + "/wifi");
@@ -121,6 +138,10 @@ public class MainActivity extends Activity implements OnClickListener
     	    for (int i=0; i< results.size(); i++) {
     	    	String ssid = results.get(i).SSID;
     	    	if (ssid.equals("TECHCRUNCH")) {
+    	    		// Keep adding to global
+    	    		allResults.add(results.get(i));
+    	    		
+    	    		// Write to specific file
 	    	    	String data = String.valueOf(time) + "," +
 	    	    			results.get(i).BSSID + "," +
 	    	    			results.get(i).SSID +"," +
@@ -134,5 +155,12 @@ public class MainActivity extends Activity implements OnClickListener
     	    e.printStackTrace();
     	}
     	
+    	
     }
+    
+	public String processDump(String filename) {
+		Layout layout = new Layout();
+		layout.inferLocation2(allResults);
+		return null;
+	}
 }
