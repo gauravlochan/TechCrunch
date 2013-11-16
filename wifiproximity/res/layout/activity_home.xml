@@ -31,9 +31,11 @@
         <ProgressBar
             android:id="@+id/progress"
             android:visibility="gone"
+            android:keepScreenOn="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="192dp"
+            android:layout_marginTop="48dp"
+            android:layout_below="@id/btn_go"
             android:layout_centerHorizontal="true" />
 
         <TextView
@@ -42,6 +44,8 @@
             android:visibility="gone"
             android:padding="8dp"
             android:gravity="center"
+            android:text="Nope... Nothing yet."
+            android:layout_marginBottom="16dp"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -50,6 +54,7 @@
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_below="@id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="48dp"

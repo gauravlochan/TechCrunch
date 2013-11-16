@@ -39,8 +39,8 @@ public class HomeActivity extends Activity {
     int farcount = 0;
     boolean isNear = false;
     private final static int COUNT_THRESHOLD = 3;
-    private final static int NEAR_THRESHOLD = -43;
-    private final static int FAR_THRESHOLD = -60;
+    private final static int NEAR_THRESHOLD = -49;
+    private final static int FAR_THRESHOLD = -50;
 
     private WifiManager mWifiService;
     private WifiReceiver mReceiver;
